@@ -1,3 +1,4 @@
+import java.sql.*;
 public class Book {
     private int bookId;
     private String title;
@@ -58,4 +59,27 @@ public class Book {
         }
         this.quantity -= amount;
     }
-}
+    public void addToDatabase() {
+        // Establish database connection
+        try (Connection connection = DatabaseConnection.getConnection()) {
+            // Prepare SQL statement for inserting book information
+            String sql = "INSERT INTO books (title, author, subject, quantity) VALUES (?, ?, ?, ?)";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                // Set parameters for the SQL statement
+                statement.setString(1, this.title);
+                statement.setString(2, this.author);
+                statement.setString(3, this.subject);
+                statement.setInt(4, this.quantity);
+
+                // Execute the SQL statement
+                statement.executeUpdate();
+                System.out.println("Book added to the database successfully!");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error adding book to the database: " + e.getMessage());
+    }
+    }
+
+    
+    }
+

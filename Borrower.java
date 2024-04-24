@@ -58,6 +58,11 @@ public class Borrower {
         this.phone = phone;
     }
 
+    public void updatePersonalInformation(String name, String address) {
+        this.name = name;
+        this.address = address;
+    }
+
     public void viewLoanHistory(List<Loan> loans) {
         System.out.println("Loan History for Borrower " + borrowerId + ":");
 

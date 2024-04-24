@@ -2,7 +2,6 @@ import java.util.List;
 import java.util.Date;
 
 public class Clerk {
-  //method overloading
     public void searchBook(String title, List<Book> books) {
         for (Book book : books) {
             if (book.getTitle().equalsIgnoreCase(title)) {
