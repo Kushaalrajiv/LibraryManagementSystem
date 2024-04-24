@@ -15,7 +15,7 @@ public class DatabaseConnection {
                 e.printStackTrace();
             }
             
-            String url = "jdbc:mysql://localhost:3306/_db";
+            String url = "jdbc:mysql://localhost:3306/my_db";
             String username = "root";
             String password = "GTAvicecity123!";
             connection = DriverManager.getConnection(url, username, password);
