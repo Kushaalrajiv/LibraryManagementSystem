@@ -8,13 +8,13 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class LibraryManagementSystem {
+
     private List<Book> books;
     private List<Borrower> borrowers;
     private List<Loan> loans;
     private Clerk clerk;
     private Librarian librarian;
     private Connection connection;
-
 
     public LibraryManagementSystem() {
         this.books = new ArrayList<>();
@@ -64,15 +64,15 @@ public class LibraryManagementSystem {
     public void viewLoanHistory(Borrower borrower, List<Loan> loans) {
         librarian.viewLoanHistory(borrower, loans);
     }
+
     public void simulateBorrowerCheckout(Borrower borrower, Book book, List<Loan> loans) {
         Thread checkoutThread = new BorrowerCheckoutThread(borrower, book, loans);
         checkoutThread.start();
     }
 
-
     public static void main(String[] args) {
         LibraryManagementSystem librarySystem = new LibraryManagementSystem();
-        Scanner in=new Scanner(System.in);
+        Scanner in = new Scanner(System.in);
         while (true) {
             System.out.println("Choose an option:");
             System.out.println("1. Add Book");
@@ -107,7 +107,7 @@ public class LibraryManagementSystem {
                 case 2:
 
                     System.out.println("Enter borrower details:");
-//                    System.out.println("Enter the borrowerId: ");
+                    System.out.println("Enter the borrowerId: ");
                     int borrowerid = 0;
                     System.out.println("Enter the borrower name: ");
                     String borrower_name = in.next();
@@ -120,22 +120,108 @@ public class LibraryManagementSystem {
                     break;
 
                 case 3:
-                   
-                    
+                    System.out.println("Enter check out book details:");
+                    System.out.println("Enter the bookID: ");
+                    int id1 = in.nextInt();
+                    System.out.println("Enter the title: ");
+                    String title1 = in.next();
+                    System.out.println("Enter the author: ");
+                    String author1 = in.next();
+                    System.out.println("Enter the subject: ");
+                    String subject1 = in.next();
+                    System.out.println("Enter the quantity: ");
+                    int quantity1 = in.nextInt();
+                    Book book1 = new Book(id1, title1, author1, subject1, quantity1);
+
+                    System.out.println("Enter borrower details:");
+                    System.out.println("Enter the borrowerId: ");
+                    int borrowerid1 = 0;
+                    System.out.println("Enter the borrower name: ");
+                    String borrower_name1 = in.next();
+                    System.out.println("Enter the address: ");
+                    String address1 = in.next();
+                    System.out.println("Enter the phone number of the borrower: ");
+                    String phoneno1 = in.next();
+                    Borrower borrower1 = new Borrower(borrowerid1, borrower_name1, address1, phoneno1);
+
+                    librarySystem.checkoutBook(book1, borrower1);
+
                     break;
+
+                case 4:
+                    System.out.println("Enter check out book details:");
+                    System.out.println("Enter the bookID: ");
+                    int id2 = in.nextInt();
+                    System.out.println("Enter the title: ");
+                    String title2 = in.next();
+                    System.out.println("Enter the author: ");
+                    String author2 = in.next();
+                    System.out.println("Enter the subject: ");
+                    String subject2 = in.next();
+                    System.out.println("Enter the quantity: ");
+                    int quantity2 = in.nextInt();
+                    Book book2 = new Book(id2, title2, author2, subject2, quantity2);
+
+                    System.out.println("Enter borrower details:");
+                    System.out.println("Enter the borrowerId: ");
+                    int borrowerid2 = 0;
+                    System.out.println("Enter the borrower name: ");
+                    String borrower_name2 = in.next();
+                    System.out.println("Enter the address: ");
+                    String address2 = in.next();
+                    System.out.println("Enter the phone number of the borrower: ");
+                    String phoneno2 = in.next();
+                    Borrower borrower2 = new Borrower(borrowerid2, borrower_name2, address2, phoneno2);
+
+                    librarySystem.checkInBook(book2, borrower2);
+
+                    break;
+                case 5:
+                    System.out.println("Enter the title of the book:");
+                    String title_book = in.next();
+                    librarySystem.searchBookByTitle(title_book);
+                    break;
+
+                case 6:
+                    System.out.println("Enter the subject of the book:");
+                    String title_sub = in.next();
+                    librarySystem.searchBookBySubject(title_sub);
+                    break;
+
+                case 7:
+                    System.out.println("Enter the author of the book:");
+                    String title_author = in.next();
+                    librarySystem.searchBookByAuthor(title_author);
+                    break;
+
+                case 8:
+                    System.out.println("Enter borrower details:");
+                    System.out.println("Enter the borrowerId: ");
+                    int borrowerid3 = 0;
+                    System.out.println("Enter the borrower name: ");
+                    String borrower_name3 = in.next();
+                    System.out.println("Enter the address: ");
+                    String address3 = in.next();
+                    System.out.println("Enter the phone number of the borrower: ");
+                    String phoneno3 = in.next();
+                    Borrower borrower3 = new Borrower(borrowerid3, borrower_name3, address3, phoneno3);
+
+                    librarySystem.viewLoanHistory(borrower3);
+
+                    break;
+
+                case 9:
+
+                    System.out.println("Exiting...");
+                    System.exit(0);
+                    break;
+
+                default:
+                    System.out.println("Invalid option. Please choose a valid option.");
             }
 
-//        librarySystem.checkoutBook(book1, borrower1);
-//        librarySystem.checkoutBook(book2, borrower1);
-//        librarySystem.checkoutBook(book2, borrower2);
-//
-//        librarySystem.checkInBook(book1, borrower1);
-//        librarySystem.checkInBook(book2, borrower1);
 
-        librarySystem.searchBookByTitle("Java Programming");
-        librarySystem.searchBookBySubject("Computer Science");
-        librarySystem.searchBookByAuthor("Jane Smith");
-
-//        librarySystem.viewLoanHistory(borrower1);
+        }
     }
-}}
+
+}
