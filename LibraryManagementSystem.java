@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class LibraryManagementSystem {
     private List<Book> books;
@@ -13,26 +14,6 @@ public class LibraryManagementSystem {
     private Clerk clerk;
     private Librarian librarian;
     private Connection connection;
-    
-    // Constructor
-    
-    
-    // Method to add a book to the database
-    // public void addBookToDatabase(Book book) {
-    //     String sql = "INSERT INTO library (title, author, subject, quantity) VALUES (?, ?, ?, ?)";
-        
-    //     try (PreparedStatement statement = connection.prepareStatement(sql)) {
-    //         statement.setString(1, book.getTitle());
-    //         statement.setString(2, book.getAuthor());
-    //         statement.setString(3, book.getSubject());
-    //         statement.setInt(4, book.getQuantity());
-            
-    //         statement.executeUpdate();
-    //         System.out.println("Book added to the database successfully!");
-    //     } catch (SQLException e) {
-    //         e.printStackTrace();
-    //     }
-    // }
 
 
     public LibraryManagementSystem() {
@@ -41,25 +22,18 @@ public class LibraryManagementSystem {
         this.loans = new ArrayList<>();
         this.clerk = new Clerk();
         this.librarian = new Librarian();
-        
-        // try {
-        //     String url = "jdbc:mysql://localhost:3306/my_db";
-        //     String userName = "root";
-        //     String password = "GTAvicecity123!";
-        //     connection = DriverManager.getConnection(url, userName, password);
-        // } catch (SQLException e) {
-        //     e.printStackTrace();
-        // }
+
     }
 
     public void addBook(Book book) {
         books.add(book);
-        book.addToDatabase(); // Call the addToDatabase() method
+        book.addToDatabase();
         System.out.println("Book added successfully!");
     }
 
     public void addBorrower(Borrower borrower) {
         borrowers.add(borrower);
+        borrower.addToDatabase();
         System.out.println("Borrower added successfully!");
     }
 
@@ -98,28 +72,70 @@ public class LibraryManagementSystem {
 
     public static void main(String[] args) {
         LibraryManagementSystem librarySystem = new LibraryManagementSystem();
-        
-        Book book1 = new Book(1, "Java Programming", "John Doe", "Programming", 5);
-        Book book2 = new Book(2, "Data Structures", "Jane Smith", "Computer Science", 3);
-        librarySystem.addBook(book1);
-        librarySystem.addBook(book2);
+        Scanner in=new Scanner(System.in);
+        while (true) {
+            System.out.println("Choose an option:");
+            System.out.println("1. Add Book");
+            System.out.println("2. Add Borrower");
+            System.out.println("3. Checkout Book");
+            System.out.println("4. Checkin Book");
+            System.out.println("5. Search Book By Title");
+            System.out.println("6. Search Book By Subject");
+            System.out.println("7. Search Book By Author");
+            System.out.println("8. View Loan History");
+            System.out.println("9. Exit");
 
-        Borrower borrower1 = new Borrower(101, "Alice", "123 Main St", "123-456-7890");
-        Borrower borrower2 = new Borrower(102, "Bob", "456 Elm St", "987-654-3210");
-        librarySystem.addBorrower(borrower1);
-        librarySystem.addBorrower(borrower2);
+            int choice = in.nextInt();
+            in.nextLine(); // Consume newline character
 
-        librarySystem.checkoutBook(book1, borrower1);
-        librarySystem.checkoutBook(book2, borrower1);
-        librarySystem.checkoutBook(book2, borrower2);
+            switch (choice) {
+                case 1:
+                    System.out.println("Enter book details:");
+                    System.out.println("Enter the bookID: ");
+                    int id = in.nextInt();
+                    System.out.println("Enter the title: ");
+                    String title = in.next();
+                    System.out.println("Enter the author: ");
+                    String author = in.next();
+                    System.out.println("Enter the subject: ");
+                    String subject = in.next();
+                    System.out.println("Enter the quantity: ");
+                    int quantity = in.nextInt();
+                    Book book = new Book(id, title, author, subject, quantity);
+                    librarySystem.addBook(book);
+                    break;
+                case 2:
 
-        librarySystem.checkInBook(book1, borrower1);
-        librarySystem.checkInBook(book2, borrower1);
+                    System.out.println("Enter borrower details:");
+//                    System.out.println("Enter the borrowerId: ");
+                    int borrowerid = 0;
+                    System.out.println("Enter the borrower name: ");
+                    String borrower_name = in.next();
+                    System.out.println("Enter the address: ");
+                    String address = in.next();
+                    System.out.println("Enter the phone number of the borrower: ");
+                    String phoneno = in.next();
+                    Borrower borrower = new Borrower(borrowerid, borrower_name, address, phoneno);
+                    librarySystem.addBorrower(borrower);
+                    break;
+
+                case 3:
+                   
+                    
+                    break;
+            }
+
+//        librarySystem.checkoutBook(book1, borrower1);
+//        librarySystem.checkoutBook(book2, borrower1);
+//        librarySystem.checkoutBook(book2, borrower2);
+//
+//        librarySystem.checkInBook(book1, borrower1);
+//        librarySystem.checkInBook(book2, borrower1);
 
         librarySystem.searchBookByTitle("Java Programming");
         librarySystem.searchBookBySubject("Computer Science");
         librarySystem.searchBookByAuthor("Jane Smith");
 
-        librarySystem.viewLoanHistory(borrower1);
+//        librarySystem.viewLoanHistory(borrower1);
     }
-}
+}}
